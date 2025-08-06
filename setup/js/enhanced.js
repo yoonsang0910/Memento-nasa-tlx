@@ -545,13 +545,14 @@ $(document).ready(function() {
     window.autoSubmitData = function() {
         setTimeout(async function() {
             try {
-                const config = window.RESEARCHER_CONFIG;
+                const config = window.RESEARCHER_CONFIG || { submitMethod: 'email' };
                 
-                if (config.submitMethod === 'email') {
-                    await submitViaEmailAuto();
+                if (config.submitMethod === 'email' || !config.submitMethod) {
+                    // Use the new web-based email submission
+                    await submitViaEmail();
                     
                     // Update UI to show success
-                    updateSubmissionStatus('✓ Successfully submitted!', '#28a745', false);
+                    updateSubmissionStatus('✓ Email opened! Please send to complete submission.', '#28a745', false);
                 } else {
                     // For other methods, call the original function
                     await submitToResearcher();
