@@ -37,8 +37,8 @@ $(document).ready(function() {
             title: 'Performance',
             question: 'How successful do you think you were in accomplishing the goals when using Memento?',
             explanation: 'How satisfied were you with your performance in accomplishing these goals? Did you achieve what you intended to do with Memento?',
-            leftLabel: 'Good',
-            rightLabel: 'Poor'
+            leftLabel: 'Poor',
+            rightLabel: 'Good'
         },
         {
             id: 'effort',
