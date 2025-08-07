@@ -1,0 +1,223 @@
+/* Memento Daily Usability Assessment - Custom Styles */
+
+/* Layout Components */
+.welcome-section {
+	background: #f8f9fa;
+	padding: 2rem;
+	border-radius: 8px;
+	margin-bottom: 2rem;
+	text-align: center;
+}
+
+.participant-info {
+	background: #e3f2fd;
+	padding: 1.5rem;
+	border-radius: 8px;
+	margin-bottom: 2rem;
+}
+
+.data-export {
+	background: #f3e5f5;
+	padding: 1.5rem;
+	border-radius: 8px;
+	margin-top: 2rem;
+}
+
+/* Button Components */
+.btn-group {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	margin-top: 1rem;
+}
+
+.btn {
+	padding: 0.75rem 1.5rem;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 1rem;
+	font-weight: 600;
+	transition: all 0.3s ease;
+	text-decoration: none;
+	display: inline-block;
+	min-width: 140px;
+	text-align: center;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.btn:active {
+	transform: translateY(0);
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	transform: none;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+	background-color: #007bff;
+	color: rgb(0, 0, 0);
+}
+
+.btn-primary:hover:not(:disabled) {
+	background-color: #0056b3;
+}
+
+.btn-success {
+	background-color: #28a745;
+	color: rgb(0, 0, 0);
+}
+
+.btn-success:hover:not(:disabled) {
+	background-color: #1e7e34;
+}
+
+.btn-secondary {
+	background-color: #495057;
+	color: rgb(0, 0, 0);
+}
+
+.btn-secondary:hover:not(:disabled) {
+	background-color: #343a40;
+	border-color: #343a40;
+}
+
+/* Rating Scale Components */
+.rating-question {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 2rem;
+	text-align: center;
+}
+
+.question-progress {
+	background: #e9ecef;
+	border-radius: 10px;
+	height: 8px;
+	margin-bottom: 2rem;
+}
+
+.progress-bar {
+	background: #007bff;
+	height: 100%;
+	border-radius: 10px;
+	transition: width 0.3s ease;
+}
+
+.rating-scale {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 2rem 0;
+	padding: 0 1rem;
+}
+
+.tick-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	margin: 1rem 0;
+	position: relative;
+}
+
+.tick-line {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: #dee2e6;
+	z-index: 1;
+}
+
+.tick {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: 3px solid #dee2e6;
+	background: white;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	font-size: 0.9rem;
+	transition: all 0.2s ease;
+	position: relative;
+	z-index: 2;
+}
+
+.tick:hover {
+	border-color: #007bff;
+	background: #f8f9fa;
+	transform: scale(1.1);
+}
+
+.tick.selected {
+	border-color: #007bff;
+	background: #007bff;
+	color: white;
+	transform: scale(1.2);
+}
+
+.scale-labels {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 1rem;
+	font-size: 0.9rem;
+	color: #6c757d;
+}
+
+.question-navigation {
+	margin-top: 3rem;
+	display: flex;
+	gap: 1.5rem;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 1rem;
+	background: rgba(248, 249, 250, 0.8);
+	border-radius: 8px;
+	border: 1px solid #dee2e6;
+}
+
+.current-rating {
+	margin: 1rem 0;
+	font-size: 1.2rem;
+	font-weight: bold;
+	color: #007bff;
+	min-height: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.tick {
+		width: 30px;
+		height: 30px;
+		font-size: 0.8rem;
+	}
+	
+	.rating-question {
+		padding: 1rem;
+	}
+	
+	.tick-container {
+		margin: 1.5rem 0;
+	}
+}
+
+/* Animations */
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}

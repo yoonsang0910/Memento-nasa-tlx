@@ -4,7 +4,8 @@
 $(document).ready(function() {
     
     // Hide all steps initially except welcome
-    $(".step_0, .step_1, .step_2, .step_3, .step_4").hide();
+    $(".step_1, .step_2, .step_3, .step_4").hide();
+    $(".step_welcome").show();
     
     // Rating questions configuration
     const ratingQuestions = [
@@ -63,7 +64,7 @@ $(document).ready(function() {
     
     // Step 1 button handler 
     $(".step_1 button").off('click').on('click', function() {
-        if ($(this).text().includes('Continue to Ratings')) {
+        if ($(this).text().includes('Begin Ratings')) {
             // Initialize rating questions
             initializeRatingQuestions();
             showCurrentQuestion();
@@ -314,7 +315,7 @@ $(document).ready(function() {
             </div>
         `;
         
-        $('#pairwise_container').html(html);
+        $('#comparison_container').html(html);
         
         // Add click handlers for comparison options
         $('.comparison-option').on('click', function() {
@@ -361,12 +362,9 @@ $(document).ready(function() {
             calculateTLXScore();
             saveToLocalStorage();
             
-            // Show step 4 and automatically submit
+            // Show step 4
             $(".step_3").hide();
             $(".step_4").show();
-            
-            // Automatically submit the data
-            autoSubmitData();
         }
     };
     
@@ -508,16 +506,24 @@ $(document).ready(function() {
             }
         });
         
-        // Calculate weighted score
+        // Calculate weighted individual scores and overall score
         let weightedSum = 0;
         let totalWeight = 0;
+        const weightedRatings = {};
         
         demands.forEach((demand, index) => {
             const rating = currentAssessment.ratings[demand] || 0;
             const weight = weights[index];
-            weightedSum += rating * weight;
+            const weightedRating = rating * weight;
+            
+            weightedRatings[demand] = weightedRating;
+            weightedSum += weightedRating;
             totalWeight += weight;
         });
+        
+        // Store weighted ratings
+        currentAssessment.weightedRatings = weightedRatings;
+        currentAssessment.weights = weights;
         
         // Calculate final TLX score
         const tlxScore = totalWeight > 0 ? Math.round(weightedSum / totalWeight) : 0;
@@ -526,6 +532,36 @@ $(document).ready(function() {
         
         console.log('TLX Score calculated:', tlxScore);
         console.log('Weights:', weights);
+        console.log('Weighted Ratings:', weightedRatings);
+    }
+    
+    // Display results summary in the new completion page
+    function displayResultsSummary() {
+        const resultsHtml = `
+            <div style="background: white; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; border-left: 4px solid #007bff;">
+                <strong>Overall TLX Score:</strong> <span style="color: #007bff; font-size: 1.2em; font-weight: bold;">${currentAssessment.tlxScore}</span>
+            </div>
+            <div style="background: white; padding: 1rem; border-radius: 6px; font-size: 0.9rem;">
+                <strong>Original Ratings (0-100 scale):</strong><br>
+                Mental Demand: ${currentAssessment.ratings.mentalDemand || 0} | 
+                Physical Demand: ${currentAssessment.ratings.physicalDemand || 0} | 
+                Temporal Demand: ${currentAssessment.ratings.temporalDemand || 0}<br>
+                Performance: ${currentAssessment.ratings.performance || 0} | 
+                Effort: ${currentAssessment.ratings.effort || 0} | 
+                Frustration: ${currentAssessment.ratings.frustration || 0}
+            </div>
+            <div style="background: white; padding: 1rem; border-radius: 6px; font-size: 0.9rem; margin-top: 0.5rem;">
+                <strong>Weighted Scores:</strong><br>
+                Mental Demand: ${currentAssessment.weightedRatings?.mentalDemand || 0} | 
+                Physical Demand: ${currentAssessment.weightedRatings?.physicalDemand || 0} | 
+                Temporal Demand: ${currentAssessment.weightedRatings?.temporalDemand || 0}<br>
+                Performance: ${currentAssessment.weightedRatings?.performance || 0} | 
+                Effort: ${currentAssessment.weightedRatings?.effort || 0} | 
+                Frustration: ${currentAssessment.weightedRatings?.frustration || 0}
+            </div>
+        `;
+        
+        $('#results_display').html(resultsHtml);
     }
     
     // Helper function to convert display names to internal slugs
