@@ -3,7 +3,7 @@
 
 const RESEARCHER_CONFIG = {
     // ✏️ CHANGE THIS TO YOUR EMAIL ADDRESS
-    email: 'yoonsakim@cs.stonybrook.edu',
+    email: 'divyanshpradhan14@gmail.com',
     
     // Study details
     studyName: 'Memento Daily Usability Form',
